@@ -13,10 +13,10 @@ const app = express();
 
 app.use(cors());  //define the cors or url in the production dont leave it open on
 app.use(express.json());
-
+app.use("/uploads", express.static("uploads"));
 app.use("/api/products", productRoutes);
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);

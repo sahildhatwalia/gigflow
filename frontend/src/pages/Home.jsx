@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FiPackage, FiPlus, FiInbox } from "react-icons/fi";
+import { FiPackage, FiPlus, FiInbox, FiSearch } from "react-icons/fi";
 import api from "../api/axios";
+import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 import ProductCard, { ProductCardSkeleton } from "../components/ProductCard";
 
 function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
 
+  // Fetch all products
   const getProducts = async () => {
     try {
       setLoading(true);
@@ -15,82 +19,139 @@ function Home() {
       setProducts(res.data);
     } catch (err) {
       console.log(err);
-      alert("Failed to fetch products");
+      toast.success("Failed to fetch products");
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    getProducts();
-  }, []);
-
-  const deleteProduct = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
-    );
-
-    if (!confirmDelete) return;
-
+  // Search products
+  const searchProducts = async (query) => {
     try {
-      await api.delete(`/${id}`);
-      alert("Product Deleted");
-      getProducts();
+      setLoading(true);
+
+      const res = await api.get(`/search?query=${query}`);
+
+      setProducts(res.data);
     } catch (err) {
       console.log(err);
-      alert("Delete Failed");
+    } finally {
+      setLoading(false);
     }
   };
 
+  // Runs on first load & when search changes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (search.trim() === "") {
+        getProducts();
+      } else {
+        searchProducts(search);
+      }
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, [search]);
+
+  // Delete
+ const deleteProduct = async (id) => {
+  const result = await Swal.fire({
+    title: "Delete Product?",
+    text: "This action cannot be undone.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#4f46e5",
+    cancelButtonColor: "#64748b",
+    confirmButtonText: "Yes, Delete",
+    cancelButtonText: "Cancel",
+    background: "#ffffff",
+  });
+
+  if (!result.isConfirmed) return;
+
+  try {
+    await api.delete(`/${id}`);
+
+    setProducts((prev) => prev.filter((item) => item._id !== id));
+
+    toast.success("🗑️ Product deleted successfully!");
+  } catch (err) {
+    console.log(err);
+    toast.error("❌ Failed to delete product!");
+  }
+};
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      {/* Dashboard Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 pb-5 border-b border-slate-200/60">
+    <div className="max-w-7xl mx-auto px-5 py-10">
+
+      {/* Header */}
+      <div className="flex flex-col md:flex-row justify-between items-center gap-5 mb-8">
+
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+          <h1 className="text-4xl font-bold text-slate-800">
             Product Inventory
           </h1>
-          <p className="text-slate-500 text-sm mt-1">
-            Manage your store's products, prices, and categories in real-time.
+
+          <p className="text-slate-500 mt-2">
+            Manage your products easily.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
-          <span className="inline-flex items-center gap-1.5 bg-indigo-50 border border-indigo-100 text-indigo-700 px-3 py-1.5 rounded-lg text-xs font-semibold">
-            <FiPackage className="text-sm" />
-            {products.length} {products.length === 1 ? "Product" : "Products"}
-          </span>
-        </div>
+        <span className="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg font-semibold">
+          {products.length} Products
+        </span>
       </div>
 
-      {/* Grid Content */}
+      {/* Search + Add */}
+      <div className="flex flex-col md:flex-row justify-between gap-5 mb-10">
+
+        <div className="relative w-full md:w-96">
+
+          <FiSearch className="absolute left-4 top-3.5 text-gray-400" />
+
+          <input
+            type="text"
+            placeholder="Search by name or category..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none"
+          />
+
+        </div>
+
+        <Link
+          to="/create"
+          className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2"
+        >
+          <FiPlus />
+          Add Product
+        </Link>
+
+      </div>
+
+      {/* Loading */}
       {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {[...Array(8)].map((_, i) => (
             <ProductCardSkeleton key={i} />
           ))}
         </div>
       ) : products.length === 0 ? (
-        <div className="text-center bg-white border border-dashed border-slate-200 rounded-2xl p-12 max-w-md mx-auto my-12 shadow-xs">
-          <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-indigo-50 text-indigo-600 mb-4">
-            <FiInbox className="h-6 w-6 stroke-[2]" />
-          </div>
-          <h3 className="mt-2 text-sm font-semibold text-slate-900">No products</h3>
-          <p className="mt-1 text-sm text-slate-500">
-            Get started by creating a new product in your inventory.
+        <div className="text-center py-20">
+
+          <FiInbox className="mx-auto text-6xl text-gray-300 mb-5" />
+
+          <h2 className="text-2xl font-bold text-gray-600">
+            No Products Found
+          </h2>
+
+          <p className="text-gray-500 mt-2">
+            Try another search or create a new product.
           </p>
-          <div className="mt-6">
-            <Link
-              to="/create"
-              className="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-xs transition-all active:scale-[0.98]"
-            >
-              <FiPlus className="text-base stroke-[2.5]" />
-              <span>Add Product</span>
-            </Link>
-          </div>
+
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
           {products.map((product) => (
             <ProductCard
               key={product._id}
@@ -98,6 +159,7 @@ function Home() {
               onDelete={deleteProduct}
             />
           ))}
+
         </div>
       )}
     </div>
@@ -105,4 +167,3 @@ function Home() {
 }
 
 export default Home;
-

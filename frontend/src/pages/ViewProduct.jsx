@@ -33,6 +33,13 @@ function ViewProduct() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-64px)] px-4 py-8">
+        <img
+
+src={product.image}
+
+className="w-full rounded-xl mb-5"
+
+/>
       <div className="w-full max-w-md flex flex-col">
         <Link
           to="/"

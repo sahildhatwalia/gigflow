@@ -14,11 +14,17 @@ const productSchema = new mongoose.Schema(
 
     category: {
       type: String,
+      required: true,
     },
+    image:{
+    type:String,
+    default:"",
+    }
   },
   {
     timestamps: true,
   }
+
 );
 
 export default mongoose.model("Product", productSchema);

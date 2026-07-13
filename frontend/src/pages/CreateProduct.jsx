@@ -1,10 +1,19 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { FiArrowLeft, FiPlusCircle, FiDollarSign, FiTag, FiBriefcase } from "react-icons/fi";
+import toast from "react-hot-toast";
+import {
+  FiArrowLeft,
+  FiPlusCircle,
+  FiDollarSign,
+  FiTag,
+  FiBriefcase,
+} from "react-icons/fi";
 import api from "../api/axios";
 
 function CreateProduct() {
   const navigate = useNavigate();
+
+  const [image, setImage] = useState(null);
 
   const [form, setForm] = useState({
     name: "",
@@ -26,17 +35,33 @@ function CreateProduct() {
 
     try {
       setLoading(true);
-      await api.post("/", form);
-      alert("Product Created Successfully");
+
+      const formData = new FormData();
+
+      formData.append("name", form.name);
+      formData.append("price", form.price);
+      formData.append("category", form.category);
+
+      if (image) {
+        formData.append("image", image);
+      }
+
+      await api.post("/", formData);
+
+      toast.success("Product Created Successfully");
+
       setForm({
         name: "",
         price: "",
         category: "",
       });
+
+      setImage(null);
+
       navigate("/");
     } catch (err) {
       console.log(err);
-      alert("Something went wrong");
+      toast.error("Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -55,78 +80,92 @@ function CreateProduct() {
 
         <form
           onSubmit={handleSubmit}
-          className="bg-white p-8 sm:p-10 rounded-2xl border border-slate-100 relative overflow-hidden shadow-sm w-full"
+          className="bg-white p-8 sm:p-10 rounded-2xl border border-slate-100 shadow-sm"
         >
-          {/* Decorative accent top bar */}
-          <div className="absolute top-0 left-0 w-full h-[4px] bg-indigo-600" />
-          
-          <h2 className="text-2xl font-bold mb-8 text-slate-900 tracking-tight flex items-center gap-2">
-            <FiPlusCircle className="text-indigo-600 text-2xl" />
-            <span>Create Product</span>
+          <div className="absolute top-0 left-0 w-full h-1 bg-indigo-600"></div>
+
+          <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
+            <FiPlusCircle className="text-indigo-600" />
+            Create Product
           </h2>
 
           <div className="space-y-5">
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-1.5">
-                <FiBriefcase className="text-slate-400" />
-                <span>Product Name</span>
+              <label className="block text-xs font-semibold mb-2">
+                <FiBriefcase className="inline mr-2" />
+                Product Name
               </label>
+
               <input
                 type="text"
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                placeholder="e.g. Mechanical Keyboard"
+                placeholder="Product Name"
                 required
-                className="w-full bg-white border border-slate-200 rounded-lg px-3.5 h-11 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-1.5">
-                <FiDollarSign className="text-slate-400" />
-                <span>Price (INR)</span>
+              <label className="block text-xs font-semibold mb-2">
+                Product Image
               </label>
+
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImage(e.target.files[0])}
+                className="w-full border rounded-lg p-2"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold mb-2">
+                <FiDollarSign className="inline mr-2" />
+                Price
+              </label>
+
               <input
                 type="number"
                 name="price"
                 value={form.price}
                 onChange={handleChange}
-                placeholder="e.g. 4999"
+                placeholder="Price"
                 required
-                min="0"
-                className="w-full bg-white border border-slate-200 rounded-lg px-3.5 h-11 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-1.5">
-                <FiTag className="text-slate-400" />
-                <span>Category</span>
+              <label className="block text-xs font-semibold mb-2">
+                <FiTag className="inline mr-2" />
+                Category
               </label>
+
               <input
                 type="text"
                 name="category"
                 value={form.category}
                 onChange={handleChange}
-                placeholder="e.g. Electronics"
+                placeholder="Category"
                 required
-                className="w-full bg-white border border-slate-200 rounded-lg px-3.5 h-11 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </div>
-          </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full inline-flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold h-11 rounded-lg shadow-xs transition-all active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer mt-8"
-          >
-            {loading ? "Creating Product..." : "Create Product"}
-          </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition"
+            >
+              {loading ? "Creating..." : "Create Product"}
+            </button>
+          </div>
         </form>
       </div>
     </div>
   );
 }
 
-export default CreateProduct;
+export default CreateProduct;

@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { FiArrowLeft, FiEdit, FiDollarSign, FiTag, FiBriefcase } from "react-icons/fi";
+import toast from "react-hot-toast";
+import {
+  FiArrowLeft,
+  FiEdit,
+  FiDollarSign,
+  FiTag,
+  FiBriefcase,
+} from "react-icons/fi";
 import api from "../api/axios";
 
 function EditProduct() {
@@ -11,7 +18,11 @@ function EditProduct() {
     name: "",
     price: "",
     category: "",
+    image: "",
   });
+
+  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState("");
 
   useEffect(() => {
     getProduct();
@@ -33,21 +44,40 @@ function EditProduct() {
     });
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      setImage(file);
+      setPreview(URL.createObjectURL(file));
+    }
+  };
+
   const updateProduct = async (e) => {
     e.preventDefault();
 
     try {
-      await api.put(`/${id}`, {
-        name: form.name,
-        price: form.price,
-        category: form.category,
+      const formData = new FormData();
+
+      formData.append("name", form.name);
+      formData.append("price", form.price);
+      formData.append("category", form.category);
+
+      if (image) {
+        formData.append("image", image);
+      }
+
+      await api.put(`/${id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
-      alert("Product Updated Successfully");
-
+      toast.success("Product Updated Successfully");
       navigate("/");
     } catch (err) {
       console.log(err);
+      toast.error("Something went wrong");
     }
   };
 
@@ -64,70 +94,101 @@ function EditProduct() {
 
         <form
           onSubmit={updateProduct}
-          className="bg-white p-8 sm:p-10 rounded-2xl border border-slate-100 relative overflow-hidden shadow-sm w-full"
+          className="bg-white p-8 sm:p-10 rounded-2xl border border-slate-100 shadow-sm"
         >
-          {/* Decorative accent top bar */}
-          <div className="absolute top-0 left-0 w-full h-[4px] bg-indigo-600" />
-          
-          <h2 className="text-2xl font-bold mb-8 text-slate-900 tracking-tight flex items-center gap-2">
-            <FiEdit className="text-indigo-600 text-2xl" />
-            <span>Edit Product</span>
+          <div className="absolute top-0 left-0 w-full h-[4px] bg-indigo-600"></div>
+
+          <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
+            <FiEdit className="text-indigo-600" />
+            Edit Product
           </h2>
 
           <div className="space-y-5">
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-1.5">
-                <FiBriefcase className="text-slate-400" />
-                <span>Product Name</span>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
+                <FiBriefcase className="inline mr-1" />
+                Product Name
               </label>
+
               <input
                 type="text"
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                placeholder="e.g. Mechanical Keyboard"
+                className="w-full border rounded-lg px-3 h-11"
                 required
-                className="w-full bg-white border border-slate-200 rounded-lg px-3.5 h-11 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-1.5">
-                <FiDollarSign className="text-slate-400" />
-                <span>Price (INR)</span>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
+                <FiDollarSign className="inline mr-1" />
+                Price
               </label>
+
               <input
                 type="number"
                 name="price"
                 value={form.price}
                 onChange={handleChange}
-                placeholder="e.g. 4999"
+                className="w-full border rounded-lg px-3 h-11"
                 required
-                min="0"
-                className="w-full bg-white border border-slate-200 rounded-lg px-3.5 h-11 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-1.5">
-                <FiTag className="text-slate-400" />
-                <span>Category</span>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
+                <FiTag className="inline mr-1" />
+                Category
               </label>
+
               <input
                 type="text"
                 name="category"
                 value={form.category}
                 onChange={handleChange}
-                placeholder="e.g. Electronics"
+                className="w-full border rounded-lg px-3 h-11"
                 required
-                className="w-full bg-white border border-slate-200 rounded-lg px-3.5 h-11 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+              />
+            </div>
+
+            {/* Current Image */}
+            {(preview || form.image) && (
+              <div>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
+                  Current Image
+                </label>
+
+                <img
+                  src={
+                    preview
+                      ? preview
+                      : `http://localhost:5000/${form.image}`
+                  }
+                  alt="Product"
+                  className="w-40 h-40 object-cover rounded-lg border"
+                />
+              </div>
+            )}
+
+            {/* Upload New Image */}
+            <div>
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
+                Change Image
+              </label>
+
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="w-full border rounded-lg p-2"
               />
             </div>
           </div>
 
           <button
             type="submit"
-            className="w-full inline-flex items-center justify-center bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold h-11 rounded-lg shadow-xs transition-all active:scale-[0.99] cursor-pointer mt-8"
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg h-11 mt-8"
           >
             Save Changes
           </button>
