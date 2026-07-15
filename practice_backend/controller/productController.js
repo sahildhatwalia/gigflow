@@ -1,4 +1,4 @@
-import Product from "../models/model.js";
+import Product from "../models/Product.js";
 
 // Create Product
 export const createProduct = async (req, res) => {
@@ -8,7 +8,7 @@ export const createProduct = async (req, res) => {
     let image = "";
 
     if (req.file) {
-      image = `/uploads/${req.file.filename}`;
+      image = `uploads/${req.file.filename}`;
     }
 
     const product = await Product.create({
@@ -30,11 +30,27 @@ export const createProduct = async (req, res) => {
   }
 };
 
-// Read All
+// Get All Products with Pagination
 export const getProducts = async (req, res) => {
   try {
-    const products = await Product.find();
-    res.json(products);
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 8;
+
+    const skip = (page - 1) * limit;
+
+    const total = await Product.countDocuments();
+
+    const products = await Product.find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.json({
+      products,
+      totalPages: Math.ceil(total / limit),
+      currentPage: page,
+      totalProducts: total,
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -67,7 +83,7 @@ export const updateProduct = async (req, res) => {
     };
 
     if (req.file) {
-      updateData.image = req.file.path;
+      updateData.image = `uploads/${req.file.filename}`;
     }
 
     const product = await Product.findByIdAndUpdate(

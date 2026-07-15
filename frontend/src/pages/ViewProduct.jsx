@@ -14,7 +14,7 @@ function ViewProduct() {
 
   const fetchProduct = async () => {
     try {
-      const res = await api.get(`/${id}`);
+      const res = await api.get(`/products/${id}`);
       setProduct(res.data);
     } catch (err) {
       console.log(err);
@@ -33,13 +33,7 @@ function ViewProduct() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-64px)] px-4 py-8">
-        <img
 
-src={product.image}
-
-className="w-full rounded-xl mb-5"
-
-/>
       <div className="w-full max-w-md flex flex-col">
         <Link
           to="/"
@@ -57,6 +51,23 @@ className="w-full rounded-xl mb-5"
             <FiBox className="text-3xl" />
           </div>
 
+          <div>
+            {product.image ? (
+              <img
+                src={
+                  product.image.startsWith("http")
+                    ? product.image
+                    : `http://localhost:5000/${product.image}`
+                }
+                alt={product.name}
+                className="w-full bg-amber-300 h-64 object-cover rounded-xl mb-5"
+              />
+            ) : (
+              <div className="w-full h-64 bg-slate-100 rounded-xl flex items-center justify-center mb-5">
+                <FiBox className="text-6xl text-indigo-600" />
+              </div>
+            )}
+          </div>
           <h1 className="text-2xl font-bold text-slate-900 tracking-tight mb-8">
             {product.name}
           </h1>

@@ -6,7 +6,13 @@ function ProductCard({ product, onDelete }) {
         <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-xs hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between">
             <div>
                 <img
-                      src={`http://localhost:5000/${product.image}`}
+                    src={
+                        product.image
+                            ? product.image.startsWith("http")
+                                ? product.image
+                                : `http://localhost:5000/${product.image}`
+                            : ""
+                    }
                     alt={product.name}
                     className="w-full h-48 object-cover rounded-lg"
                 />

@@ -46,7 +46,7 @@ function CreateProduct() {
         formData.append("image", image);
       }
 
-      await api.post("/", formData);
+      await api.post("/products", formData);
 
       toast.success("Product Created Successfully");
 
@@ -114,6 +114,7 @@ function CreateProduct() {
 
               <input
                 type="file"
+                name="image"
                 accept="image/*"
                 onChange={(e) => setImage(e.target.files[0])}
                 className="w-full border rounded-lg p-2"

@@ -30,7 +30,7 @@ function EditProduct() {
 
   const getProduct = async () => {
     try {
-      const res = await api.get(`/${id}`);
+      const res = await api.get(`/products/${id}`);
       setForm(res.data);
     } catch (err) {
       console.log(err);
@@ -67,11 +67,7 @@ function EditProduct() {
         formData.append("image", image);
       }
 
-      await api.put(`/${id}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await api.put(`/products/${id}`, formData);
 
       toast.success("Product Updated Successfully");
       navigate("/");
@@ -163,6 +159,8 @@ function EditProduct() {
                   src={
                     preview
                       ? preview
+                      : form.image.startsWith("http")
+                      ? form.image
                       : `http://localhost:5000/${form.image}`
                   }
                   alt="Product"
@@ -179,6 +177,7 @@ function EditProduct() {
 
               <input
                 type="file"
+                name="image"
                 accept="image/*"
                 onChange={handleImageChange}
                 className="w-full border rounded-lg p-2"

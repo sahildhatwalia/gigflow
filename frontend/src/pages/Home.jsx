@@ -1,46 +1,60 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FiPackage, FiPlus, FiInbox, FiSearch } from "react-icons/fi";
+import {
+  FiPackage,
+  FiPlus,
+  FiInbox,
+} from "react-icons/fi";
+import { useContext } from "react";
+import { SearchContext } from "../context/SearchContext";
 import api from "../api/axios";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
-import ProductCard, { ProductCardSkeleton } from "../components/ProductCard";
+import ProductCard, {
+  ProductCardSkeleton,
+} from "../components/ProductCard";
 
 function Home() {
   const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState("");
+  const { search } = useContext(SearchContext);
 
-  // Fetch all products
+  // Fetch Products
   const getProducts = async () => {
     try {
       setLoading(true);
-      const res = await api.get("/");
-      setProducts(res.data);
+
+      const res = await api.get(`/products?page=${page}&limit=8`);
+
+      setProducts(res.data.products);
+      setTotalPages(res.data.totalPages);
     } catch (err) {
       console.log(err);
-      toast.success("Failed to fetch products");
+      toast.error("Failed to fetch products");
     } finally {
       setLoading(false);
     }
   };
 
-  // Search products
+  // Search Products
   const searchProducts = async (query) => {
     try {
       setLoading(true);
 
-      const res = await api.get(`/search?query=${query}`);
+      const res = await api.get(`/products/search?query=${query}`);
 
       setProducts(res.data);
     } catch (err) {
       console.log(err);
+      toast.error("Search failed");
     } finally {
       setLoading(false);
     }
   };
 
-  // Runs on first load & when search changes
+  // Runs whenever page or search changes
   useEffect(() => {
     const timer = setTimeout(() => {
       if (search.trim() === "") {
@@ -51,35 +65,37 @@ function Home() {
     }, 400);
 
     return () => clearTimeout(timer);
-  }, [search]);
+  }, [page, search]);
 
-  // Delete
- const deleteProduct = async (id) => {
-  const result = await Swal.fire({
-    title: "Delete Product?",
-    text: "This action cannot be undone.",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#4f46e5",
-    cancelButtonColor: "#64748b",
-    confirmButtonText: "Yes, Delete",
-    cancelButtonText: "Cancel",
-    background: "#ffffff",
-  });
+  // Delete Product
+  const deleteProduct = async (id) => {
+    const result = await Swal.fire({
+      title: "Delete Product?",
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#4f46e5",
+      cancelButtonColor: "#64748b",
+      confirmButtonText: "Yes, Delete",
+      cancelButtonText: "Cancel",
+    });
 
-  if (!result.isConfirmed) return;
+    if (!result.isConfirmed) return;
 
-  try {
-    await api.delete(`/${id}`);
+    try {
+      await api.delete(`/products/${id}`);
 
-    setProducts((prev) => prev.filter((item) => item._id !== id));
+      setProducts((prev) =>
+        prev.filter((item) => item._id !== id)
+      );
 
-    toast.success("🗑️ Product deleted successfully!");
-  } catch (err) {
-    console.log(err);
-    toast.error("❌ Failed to delete product!");
-  }
-};
+      toast.success("Product Deleted");
+    } catch (err) {
+      console.log(err);
+      toast.error("Delete Failed");
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto px-5 py-10">
 
@@ -99,24 +115,13 @@ function Home() {
         <span className="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg font-semibold">
           {products.length} Products
         </span>
+
       </div>
 
       {/* Search + Add */}
       <div className="flex flex-col md:flex-row justify-between gap-5 mb-10">
 
-        <div className="relative w-full md:w-96">
-
-          <FiSearch className="absolute left-4 top-3.5 text-gray-400" />
-
-          <input
-            type="text"
-            placeholder="Search by name or category..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none"
-          />
-
-        </div>
+        
 
         <Link
           to="/create"
@@ -159,6 +164,35 @@ function Home() {
               onDelete={deleteProduct}
             />
           ))}
+
+        </div>
+      )}
+
+      {/* Pagination */}
+      {search.trim() === "" && (
+        <div className="flex justify-center items-center gap-5 mt-12">
+
+          <button
+            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+            disabled={page === 1}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg disabled:opacity-50"
+          >
+            Previous
+          </button>
+
+          <span className="font-semibold text-slate-700">
+            Page {page} of {totalPages}
+          </span>
+
+          <button
+            onClick={() =>
+              setPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={page === totalPages}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg disabled:opacity-50"
+          >
+            Next
+          </button>
 
         </div>
       )}
