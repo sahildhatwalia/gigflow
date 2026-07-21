@@ -4,8 +4,18 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stockly-Product Inventory Management </title>
-    <meta name="description" content="Manage your products, pricing, and stock levels effortlessly with Stockly, a clean and responsive MERN Stack application." />
+    <title>GigFlow - Freelancer Collaboration Platform</title>
+    <meta name="description" content="Collaborate seamlessly on GigFlow, a modern SaaS platform designed for premium freelancers and clients." />
+    <script>
+      (function() {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -5,9 +5,10 @@ import path from "path";
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/authRoutes.js";
 import connectDB from "./config/db.js";
-import productRoutes from "./routes/productRoutes.js";
+import projectRoutes from "./routes/projectRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js";
-
+import verifyRoutes from "./routes/verifyRoutes.js";
+import portfolioRoutes from "./routes/portfolioRoutes.js";
 dotenv.config();
 
 connectDB();
@@ -20,10 +21,21 @@ const __dirname = path.dirname(__filename);
 app.use(cors());  //define the cors or url in production don’t leave it open
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-app.use("/api/products", productRoutes);
+app.use("/api/projects", projectRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/verify", verifyRoutes);
+app.use("/api/portfolio", portfolioRoutes);
 const PORT = process.env.PORT || 5000;
+
+// Error handler (returns JSON and logs server errors)
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || "Internal Server Error",
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);

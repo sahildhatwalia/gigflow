@@ -1,17 +1,21 @@
 import api from "./axios";
 
 const profileApi = {
-  getProfile: () => api.get("/profile"),
+  getProfile() {
+    return api.get("/profile");
+  },
 
-  updateProfile: (formData) =>
-    api.put("/profile", formData, {
+  updateProfile(formData) {
+    return api.put("/profile", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
-    }),
+    });
+  },
 
-  changePassword: (data) =>
-    api.put("/profile/password", data),
+  changePassword(data) {
+    return api.put("/profile/password", data);
+  },
 };
 
 export default profileApi;

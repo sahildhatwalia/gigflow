@@ -2,6 +2,9 @@ import { useState } from "react";
 import { FiLock } from "react-icons/fi";
 import toast from "react-hot-toast";
 import profileApi from "../api/profile";
+import Card from "../components/ui/Card";
+import Button from "../components/ui/Button";
+import Input from "../components/ui/Input";
 
 function ChangePassword() {
   const [form, setForm] = useState({
@@ -34,7 +37,7 @@ function ChangePassword() {
         newPassword: form.newPassword,
       });
 
-      toast.success("Password changed successfully");
+      toast.success("Password changed successfully!");
 
       setForm({
         oldPassword: "",
@@ -49,52 +52,58 @@ function ChangePassword() {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-12 bg-white shadow rounded-xl p-8">
-      <h1 className="text-3xl font-bold mb-6 flex items-center gap-2">
-        <FiLock />
-        Change Password
-      </h1>
+    <div className="max-w-xl mx-auto space-y-6">
+      <Card className="relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-brand-500 to-indigo-600"></div>
 
-      <form onSubmit={handleSubmit} className="space-y-5">
+        <h1 className="text-2xl font-extrabold mb-8 text-slate-900 dark:text-white flex items-center gap-2.5">
+          <FiLock className="text-brand-500" />
+          <span>Change Password</span>
+        </h1>
 
-        <input
-          type="password"
-          name="oldPassword"
-          placeholder="Current Password"
-          value={form.oldPassword}
-          onChange={handleChange}
-          className="w-full border rounded-lg p-3"
-          required
-        />
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <Input
+            label="Current Password"
+            type="password"
+            name="oldPassword"
+            value={form.oldPassword}
+            onChange={handleChange}
+            placeholder="Current Password"
+            icon={FiLock}
+            required
+          />
 
-        <input
-          type="password"
-          name="newPassword"
-          placeholder="New Password"
-          value={form.newPassword}
-          onChange={handleChange}
-          className="w-full border rounded-lg p-3"
-          required
-        />
+          <Input
+            label="New Password"
+            type="password"
+            name="newPassword"
+            value={form.newPassword}
+            onChange={handleChange}
+            placeholder="New Password"
+            icon={FiLock}
+            required
+          />
 
-        <input
-          type="password"
-          name="confirmPassword"
-          placeholder="Confirm Password"
-          value={form.confirmPassword}
-          onChange={handleChange}
-          className="w-full border rounded-lg p-3"
-          required
-        />
+          <Input
+            label="Confirm Password"
+            type="password"
+            name="confirmPassword"
+            value={form.confirmPassword}
+            onChange={handleChange}
+            placeholder="Confirm Password"
+            icon={FiLock}
+            required
+          />
 
-        <button
-          disabled={loading}
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg py-3"
-        >
-          {loading ? "Updating..." : "Update Password"}
-        </button>
-
-      </form>
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-brand-500 hover:bg-brand-600 focus:ring-brand-500 text-white font-semibold py-3.5 rounded-xl cursor-pointer"
+          >
+            {loading ? "Updating..." : "Update Password"}
+          </Button>
+        </form>
+      </Card>
     </div>
   );
 }

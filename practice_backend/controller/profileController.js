@@ -5,7 +5,10 @@ export const getProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
 
-    res.json(user);
+    res.status(200).json({
+  success: true,
+  user,
+});
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -39,12 +42,16 @@ export const updateProfile = async (req, res) => {
     user.website = req.body.website || user.website;
 
     if (req.file) {
-      user.avatar = req.file.path;
+      user.avatar = `uploads/${req.file.filename}`;;
     }
 
     await user.save();
 
-    res.json(user);
+    res.status(200).json({
+  success: true,
+  message: "Profile updated successfully",
+  user,
+});
 
   } catch (err) {
     res.status(500).json({
@@ -80,9 +87,10 @@ export const changePassword = async (req, res) => {
 
     await user.save();
 
-    res.json({
-      message: "Password changed successfully",
-    });
+   res.status(200).json({
+    success:true,
+    message:"Password updated successfully",
+});
 
   } catch (err) {
     res.status(500).json({

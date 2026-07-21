@@ -5,12 +5,15 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+      trim: true,
     },
 
     email: {
       type: String,
       required: true,
       unique: true,
+      lowercase: true,
+      trim: true,
     },
 
     password: {
@@ -31,6 +34,7 @@ const userSchema = new mongoose.Schema(
     bio: {
       type: String,
       default: "",
+      maxlength: 250,
     },
 
     address: {
@@ -47,18 +51,41 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    token:{
-        type: String,
-        default: "",
-    },
+
     website: {
       type: String,
       default: "",
     },
+    isVerified: {
+    type: Boolean,
+    default: false,
+},
+
+    role: {
+      type: String,
+      enum: ["Client", "Freelancer"],
+      default: "Freelancer",
+      required: true,
+    },
+
+emailOtp: {
+    type: String,
+    default: "",
+},
+
+emailOtpExpiry: {
+    type: Date,
+},
+
+twoFactorEnabled: {
+    type: Boolean,
+    default: false,
+},
   },
   {
     timestamps: true,
   }
+
 );
 
 const User = mongoose.models.User || mongoose.model("User", userSchema);

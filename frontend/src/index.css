@@ -1,21 +1,90 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 @import "tailwindcss";
 
 @theme {
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
+  
+  /* Overrides for standard slate scales to map directly to Vercel/Linear color specs */
+  --color-slate-50: #f9fafb;     /* Page background (light) */
+  --color-slate-100: #f3f4f6;    /* Hover / background (light) */
+  --color-slate-200: #e5e7eb;    /* Borders (light) */
+  --color-slate-300: #d1d5db;    /* Inactive tabs / elements */
+  --color-slate-400: #9ca3af;    /* Icons / placeholder */
+  --color-slate-500: #6b7280;    /* Secondary text (light) */
+  --color-slate-600: #4b5563;    /* Disabled text / hover */
+  --color-slate-700: #334155;    /* Borders (dark) */
+  --color-slate-800: #1e293b;    /* Cards background (dark) */
+  --color-slate-900: #111827;    /* Primary text (light) */
+  --color-slate-950: #0f172a;    /* Page background (dark) */
+
+  /* Brand / primary settings - Realigned to Freelancer.in trademark blue */
+  --color-brand-50: #f0f7ff;
+  --color-brand-100: #e0effe;
+  --color-brand-500: #007fed;    /* Primary Freelancer Blue */
+  --color-brand-600: #006bca;    /* Primary Hover */
+  --color-brand-700: #0057a6;    /* Primary Active */
+
+  /* Accent Highlight settings */
+  --color-accent-50: #fef2f2;
+  --color-accent-100: #fee2e2;
+  --color-accent-500: #dc2626;
+  --color-accent-600: #b91c1c;
+  --color-accent-700: #991b1b;
+
+  /* Custom premium shadows */
+  --shadow-premium: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0-1px rgba(0, 0, 0, 0.02);
+  --shadow-premium-dark: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
-body {
-  background-color: #f8fafc; /* bg-slate-50 */
-  color: #0f172a; /* text-slate-900 */
-  font-family: var(--font-sans);
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @apply bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    @apply tracking-tight;
+  }
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
+/* Glassmorphism utility classes */
+.glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dark .glass {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-200 dark:bg-slate-700 rounded-full hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors;
+}
+
+/* Animations helpers */
+.hover-lift {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
 }
