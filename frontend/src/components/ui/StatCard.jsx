@@ -22,14 +22,14 @@ function StatCard({
           </span>
         </div>
         {Icon && (
-          <div className="p-3 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 text-slate-500 dark:text-slate-400 rounded-xl">
+          <div className="p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 rounded-xl">
             <Icon size={20} />
           </div>
         )}
       </div>
 
       {(trend || description) && (
-        <div className="flex items-center gap-2 mt-4 pt-3 border-t border-slate-50 dark:border-slate-800/60 text-xs">
+        <div className="flex items-center gap-2 mt-4 pt-3 border-t border-slate-200 dark:border-slate-700/60 text-xs">
           {trend && (
             <span
               className={`font-semibold flex items-center gap-0.5 text-slate-500 dark:text-slate-400`}

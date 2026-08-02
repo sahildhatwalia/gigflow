@@ -84,7 +84,7 @@ function Register() {
                   className={`flex flex-col items-center justify-center p-4 rounded-xl border text-center transition-all duration-300 cursor-pointer ${
                     form.role === "Freelancer"
                       ? "border-brand-500 bg-brand-50/20 dark:bg-indigo-950/20 text-brand-600 dark:text-indigo-400 ring-2 ring-brand-500/20"
-                      : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-transparent text-slate-600 dark:text-slate-400"
+                      : "border-slate-200 dark:border-slate-700 hover:border-slate-350 dark:hover:border-slate-600 bg-transparent text-slate-650 dark:text-slate-400"
                   }`}
                 >
                   <div className="relative">
@@ -107,7 +107,7 @@ function Register() {
                   className={`flex flex-col items-center justify-center p-4 rounded-xl border text-center transition-all duration-300 cursor-pointer ${
                     form.role === "Client"
                       ? "border-brand-500 bg-brand-50/20 dark:bg-indigo-950/20 text-brand-600 dark:text-indigo-400 ring-2 ring-brand-500/20"
-                      : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-transparent text-slate-600 dark:text-slate-400"
+                      : "border-slate-200 dark:border-slate-700 hover:border-slate-350 dark:hover:border-slate-600 bg-transparent text-slate-650 dark:text-slate-400"
                   }`}
                 >
                   <div className="relative">

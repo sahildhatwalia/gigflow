@@ -16,7 +16,7 @@ function Button({
   
   const variants = {
     primary: "bg-brand-500 hover:bg-brand-600 text-white dark:bg-brand-500 dark:hover:bg-brand-600 focus:ring-brand-500 shadow-sm shadow-brand-500/10",
-    secondary: "bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 focus:ring-slate-500",
+    secondary: "bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 focus:ring-slate-500",
     outline: "border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:ring-slate-500",
     ghost: "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800 focus:ring-slate-500",
     danger: "bg-accent-500 hover:bg-accent-600 text-white focus:ring-accent-500 shadow-sm shadow-accent-500/10",

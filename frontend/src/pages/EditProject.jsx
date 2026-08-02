@@ -159,7 +159,7 @@ function EditProject() {
                 onChange={handleChange}
                 required
                 rows={5}
-                className="w-full border border-slate-200 dark:border-slate-800 bg-transparent text-slate-900 dark:text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm resize-none"
+                className="w-full border border-slate-200 dark:border-slate-700 bg-transparent text-slate-900 dark:text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm resize-none"
               />
             </div>
 
@@ -195,7 +195,7 @@ function EditProject() {
                   name="status"
                   value={form.status}
                   onChange={handleChange}
-                  className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-900 dark:text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm h-[46px] cursor-pointer"
+                  className="w-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-900 dark:text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm h-[46px] cursor-pointer"
                 >
                   <option value="open">Open</option>
                   <option value="in-progress">In-Progress</option>
@@ -223,7 +223,7 @@ function EditProject() {
                   .map((skill, i) => (
                     <span
                       key={i}
-                      className="text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-2 py-0.5 rounded-md border dark:border-slate-700"
+                      className="text-xs bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 px-2 py-0.5 rounded-md border border-slate-200 dark:border-slate-700"
                     >
                       {skill}
                     </span>

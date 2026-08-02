@@ -12,7 +12,7 @@ function Card({
   const cardStyles = `${padding} rounded-xl border ${
     glass
       ? "glass border-slate-200/50 dark:border-slate-700/40"
-      : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700"
+      : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700"
   } shadow-xs dark:shadow-none transition-all duration-300 ${
     onClick ? "cursor-pointer" : ""
   } ${className}`;

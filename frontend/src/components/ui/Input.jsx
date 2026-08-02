@@ -34,7 +34,7 @@ const Input = forwardRef(({
           onChange={onChange}
           placeholder={placeholder}
           required={required}
-          className={`w-full border bg-transparent text-slate-900 dark:text-slate-100 rounded-xl py-3 pr-4 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm ${
+          className={`w-full border bg-transparent text-slate-900 dark:text-white rounded-xl py-3 pr-4 focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm ${
             Icon ? "pl-10" : "pl-4"
           } ${
             error

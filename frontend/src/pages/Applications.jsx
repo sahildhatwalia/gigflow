@@ -124,7 +124,7 @@ function Applications() {
 
       {/* Toolbar Search / Filters */}
       {applications.length > 0 && (
-        <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl shadow-sm">
+        <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl shadow-sm">
           <div className="relative w-full sm:max-w-xs">
             <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 pointer-events-none">
               <FiSearch size={16} />
@@ -236,13 +236,13 @@ function Applications() {
                     <div className="grid grid-cols-2 gap-2 pt-2">
                       <div className="bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700/40 p-2 rounded-xl text-center">
                         <span className="text-[8px] uppercase font-bold tracking-wider text-slate-400 block">Job Budget</span>
-                        <span className="text-sm font-extrabold text-slate-800 dark:text-slate-200">
+                        <span className="text-sm font-extrabold text-slate-900 dark:text-white">
                           ₹{Number(app.project.budget).toLocaleString("en-IN")}
                         </span>
                       </div>
                       <div className="bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-700/40 p-2 rounded-xl text-center">
                         <span className="text-[8px] uppercase font-bold tracking-wider text-slate-400 block">Your Bid</span>
-                        <span className="text-sm font-extrabold text-slate-800 dark:text-slate-200">
+                        <span className="text-sm font-extrabold text-slate-900 dark:text-white">
                           ₹{Number(app.bidAmount).toLocaleString("en-IN")}
                         </span>
                       </div>

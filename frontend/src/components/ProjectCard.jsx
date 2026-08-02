@@ -36,7 +36,7 @@ function ProjectCard({ project, onDelete }) {
 
         {/* Project Image (Optional Attachment) */}
         {project.image && (
-          <div className="mb-4 overflow-hidden rounded-xl h-36 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800">
+          <div className="mb-4 overflow-hidden rounded-xl h-36 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-700">
             <img
               src={
                 project.image.startsWith("http")
@@ -65,7 +65,7 @@ function ProjectCard({ project, onDelete }) {
             {project.skills.map((skill, index) => (
               <span
                 key={index}
-                className="text-[9px] font-bold uppercase tracking-wide bg-slate-50 dark:bg-slate-950 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded-md border border-slate-100 dark:border-slate-800/80"
+                className="text-[9px] font-bold uppercase tracking-wide bg-slate-50 dark:bg-slate-950 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded-md border border-slate-100 dark:border-slate-700/80"
               >
                 {skill}
               </span>
@@ -74,7 +74,7 @@ function ProjectCard({ project, onDelete }) {
         )}
 
         {/* Budget & Client */}
-        <div className="mt-5 pt-4 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between">
+        <div className="mt-5 pt-4 border-t border-slate-50 dark:border-slate-700 flex items-center justify-between">
           <div className="flex flex-col">
             <span className="text-[9px] uppercase font-bold tracking-wider text-slate-400 dark:text-slate-500">Budget</span>
             <div className="flex items-center gap-0.5 mt-0.5">
@@ -105,7 +105,7 @@ function ProjectCard({ project, onDelete }) {
       </div>
 
       {/* Button Actions */}
-      <div className="grid grid-cols-3 gap-2 mt-6 pt-4 border-t border-slate-100 dark:border-slate-800">
+      <div className="grid grid-cols-3 gap-2 mt-6 pt-4 border-t border-slate-100 dark:border-slate-700">
         <Link
           to={`/view/${project._id}`}
           className="col-span-1"

@@ -173,7 +173,7 @@ function Messages() {
   );
 
   return (
-    <div className="max-w-7xl mx-auto h-[calc(100vh-140px)] flex flex-col md:flex-row bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm">
+    <div className="max-w-7xl mx-auto h-[calc(100vh-140px)] flex flex-col md:flex-row bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden shadow-sm">
       
       {/* LEFT COLUMN: CONVERSATION LIST */}
       <div
@@ -267,7 +267,7 @@ function Messages() {
         {activeConv ? (
           <>
             {/* Header toolbar */}
-            <div className="h-16 border-b border-slate-200 dark:border-slate-700 px-4 flex items-center justify-between bg-white dark:bg-slate-800 z-10">
+            <div className="h-16 border-b border-slate-200 dark:border-slate-700 px-4 flex items-center justify-between bg-white dark:bg-slate-900 z-10">
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setMobileShowChat(false)}
@@ -317,7 +317,7 @@ function Messages() {
                     className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-sm ${
                       msg.fromMe
                         ? "bg-slate-900 text-white rounded-br-none dark:bg-white dark:text-slate-950"
-                        : "bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/60 rounded-bl-none"
+                        : "bg-white dark:bg-slate-900 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700/60 rounded-bl-none"
                     }`}
                   >
                     <p className="leading-relaxed break-words">{msg.text}</p>
@@ -339,7 +339,7 @@ function Messages() {
               {/* Typing indicator */}
               {isTyping && (
                 <div className="flex justify-start">
-                  <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/60 rounded-2xl px-4 py-3 rounded-bl-none">
+                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/60 rounded-2xl px-4 py-3 rounded-bl-none">
                     <div className="flex gap-1.5 items-center justify-center">
                       <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce" />
                       <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]" />
@@ -355,7 +355,7 @@ function Messages() {
             {/* Input keyboard form */}
             <form
               onSubmit={handleSendMessage}
-              className="p-4 border-t border-slate-200 dark:border-slate-700 flex items-center gap-3 bg-white dark:bg-slate-800"
+              className="p-4 border-t border-slate-200 dark:border-slate-700 flex items-center gap-3 bg-white dark:bg-slate-900"
             >
               <input
                 type="text"

@@ -124,7 +124,7 @@ function CreateProject() {
                 placeholder="Provide a detailed description of the project requirements, deliverables, and goals..."
                 required
                 rows={5}
-                className="w-full border border-slate-200 dark:border-slate-800 bg-transparent text-slate-900 dark:text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm resize-none"
+                className="w-full border border-slate-200 dark:border-slate-700 bg-transparent text-slate-900 dark:text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm resize-none"
               />
             </div>
 
@@ -172,7 +172,7 @@ function CreateProject() {
                   .map((skill, i) => (
                     <span
                       key={i}
-                      className="text-xs bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md border dark:border-slate-700"
+                      className="text-xs bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-md border border-slate-200 dark:border-slate-700"
                     >
                       {skill}
                     </span>

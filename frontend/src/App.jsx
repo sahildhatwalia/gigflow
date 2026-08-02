@@ -44,7 +44,7 @@ function App() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-[#F8FAFC]/50 dark:bg-[#0F172A]">
+      <div className="flex items-center justify-center min-h-screen bg-slate-50 dark:bg-slate-950">
         <Loader size="lg" />
       </div>
     );
@@ -57,7 +57,7 @@ function App() {
   );
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC]/50 dark:bg-[#0F172A] transition-colors duration-300">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       <Suspense fallback={suspenseFallback}>
         <Routes>
           {/* Guest only routes (with public Navbar) */}

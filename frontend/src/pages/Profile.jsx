@@ -152,7 +152,7 @@ function Profile() {
                   src={avatar ? preview : user.avatar}
                   name={form.name}
                   size="xl"
-                  className="w-32 h-32 md:w-36 md:h-36 object-cover border-4 border-slate-100 dark:border-slate-800"
+                  className="w-32 h-32 md:w-36 md:h-36 object-cover border-4 border-slate-100 dark:border-slate-700"
                 />
 
                 <label
@@ -183,7 +183,7 @@ function Profile() {
                 {form.email}
               </p>
 
-              <div className="mt-6 w-full text-left bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
+              <div className="mt-6 w-full text-left bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 p-4 rounded-xl">
                 <h3 className="font-bold text-brand-500 mb-2 text-xs uppercase tracking-wider">
                   Profile Tips
                 </h3>
@@ -256,13 +256,13 @@ function Profile() {
                   name="bio"
                   value={form.bio}
                   onChange={handleChange}
-                  className="w-full border border-slate-200 dark:border-slate-800 bg-transparent text-slate-900 dark:text-white p-3 rounded-xl resize-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 outline-none transition text-sm"
+                  className="w-full border border-slate-200 dark:border-slate-700 bg-transparent text-slate-900 dark:text-white p-3 rounded-xl resize-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 outline-none transition text-sm"
                   placeholder="Tell something about yourself..."
                 />
               </div>
 
               {/* Social links */}
-              <div className="mt-10 pt-6 border-t border-slate-100 dark:border-slate-800">
+              <div className="mt-10 pt-6 border-t border-slate-200 dark:border-slate-700">
                 <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-6">
                   Social Portfolios
                 </h2>
@@ -312,7 +312,7 @@ function Profile() {
                   </span>
                 </div>
 
-                <div className="w-full h-2.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                <div className="w-full h-2.5 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
                   <div
                     style={{ width: `${percentage}%` }}
                     className="h-full bg-brand-500 transition-all duration-500"

@@ -186,7 +186,7 @@ function ViewProject() {
 
             {/* Project Image */}
             {project.image && (
-              <div className="mb-6 overflow-hidden rounded-2xl border border-slate-100 dark:border-slate-800 max-h-96 bg-slate-50 dark:bg-slate-950">
+              <div className="mb-6 overflow-hidden rounded-2xl border border-slate-100 dark:border-slate-700 max-h-96 bg-slate-50 dark:bg-slate-950">
                 <img
                   src={
                     project.image.startsWith("http")
@@ -200,7 +200,7 @@ function ViewProject() {
             )}
 
             {/* Budget Display */}
-            <div className="bg-slate-50 dark:bg-slate-950/40 rounded-2xl p-5 border border-slate-100 dark:border-slate-800/80 mb-6 flex items-center justify-between">
+            <div className="bg-slate-50 dark:bg-slate-950/40 rounded-2xl p-5 border border-slate-100 dark:border-slate-700/80 mb-6 flex items-center justify-between">
               <div>
                 <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Project Budget</span>
                 <div className="flex items-center gap-0.5 mt-1">
@@ -232,7 +232,7 @@ function ViewProject() {
                   {project.skills.map((skill, index) => (
                     <span
                       key={index}
-                      className="text-xs font-semibold bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-300 px-3.5 py-1.5 rounded-lg border border-slate-100 dark:border-slate-800 transition-colors"
+                      className="text-xs font-semibold bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-300 px-3.5 py-1.5 rounded-lg border border-slate-100 dark:border-slate-700 transition-colors"
                     >
                       {skill}
                     </span>
@@ -243,7 +243,7 @@ function ViewProject() {
 
             {/* Actions for owner */}
             {isOwner && (
-              <div className="flex items-center gap-3 pt-6 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex items-center gap-3 pt-6 border-t border-slate-100 dark:border-slate-700">
                 <Link to={`/edit/${project._id}`}>
                   <Button variant="outline" size="md" className="flex items-center gap-2">
                     <FiEdit />
@@ -287,7 +287,7 @@ function ViewProject() {
                       onChange={handleProposalChange}
                       required
                       min={1}
-                      className="w-full border border-slate-200 dark:border-slate-800 bg-transparent text-slate-900 dark:text-white pl-8 pr-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm"
+                      className="w-full border border-slate-200 dark:border-slate-700 bg-transparent text-slate-900 dark:text-white pl-8 pr-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm"
                     />
                   </div>
                 </div>
@@ -303,7 +303,7 @@ function ViewProject() {
                     placeholder="Introduce yourself, describe your experience related to this job, and how you plan to complete it..."
                     required
                     rows={4}
-                    className="w-full border border-slate-200 dark:border-slate-800 bg-transparent text-slate-900 dark:text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm resize-none"
+                    className="w-full border border-slate-200 dark:border-slate-700 bg-transparent text-slate-900 dark:text-white px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all text-sm resize-none"
                   />
                 </div>
 
@@ -351,7 +351,7 @@ function ViewProject() {
 
               {/* Client links */}
               {typeof project.client === "object" && (
-                <div className="flex gap-3 text-slate-400 dark:text-slate-500 border-t border-slate-50 dark:border-slate-800 pt-4">
+                <div className="flex gap-3 text-slate-400 dark:text-slate-500 border-t border-slate-50 dark:border-slate-700 pt-4">
                   {project.client.website && (
                     <a
                       href={project.client.website}
@@ -388,7 +388,7 @@ function ViewProject() {
           )}
 
           {/* Secure details card */}
-          <div className="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-2xl p-6 border border-slate-800 shadow-md">
+          <div className="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-2xl p-6 border border-slate-700 shadow-md">
             <h3 className="font-extrabold text-lg mb-3 flex items-center gap-2 text-brand-400">
               <FiCheckCircle />
               <span>GigFlow Escrow</span>

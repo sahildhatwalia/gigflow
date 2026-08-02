@@ -195,7 +195,7 @@ function Home() {
               className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border text-sm font-semibold transition-all duration-300 cursor-pointer ${
                 showFilters || categoryFilter || skillsFilter
                   ? "bg-brand-50 dark:bg-indigo-950/20 border-brand-200 dark:border-indigo-900/40 text-brand-600 dark:text-indigo-400"
-                  : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:text-slate-400 text-slate-600 bg-transparent"
+                  : "border-slate-200 dark:border-slate-700 hover:border-slate-350 dark:text-slate-400 text-slate-600 bg-transparent"
               }`}
             >
               <FiSliders />
@@ -213,7 +213,7 @@ function Home() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden mt-4 pt-4 border-t border-slate-100 dark:border-slate-800/80"
+                className="overflow-hidden mt-4 pt-4 border-t border-slate-100 dark:border-slate-700/80"
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Category select filter */}
@@ -224,7 +224,7 @@ function Home() {
                     <select
                       value={categoryFilter}
                       onChange={(e) => setCategoryFilter(e.target.value)}
-                      className="w-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 dark:text-white px-4 py-2.5 rounded-xl text-sm h-11 cursor-pointer focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
+                      className="w-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 dark:text-white px-4 py-2.5 rounded-xl text-sm h-11 cursor-pointer focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
                     >
                       <option value="">All Categories</option>
                       {categories.map((cat, idx) => (
@@ -245,7 +245,7 @@ function Home() {
                       value={skillsFilter}
                       onChange={(e) => setSkillsFilter(e.target.value)}
                       placeholder="e.g. React, Node, CSS (comma-separated)"
-                      className="w-full border border-slate-200 dark:border-slate-800 bg-transparent dark:text-white px-4 py-2.5 rounded-xl text-sm h-11 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
+                      className="w-full border border-slate-200 dark:border-slate-700 bg-transparent dark:text-white px-4 py-2.5 rounded-xl text-sm h-11 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
                     />
                   </div>
                 </div>
@@ -276,7 +276,7 @@ function Home() {
             className={`text-xs px-4 py-2 rounded-full font-semibold border transition-all cursor-pointer ${
               categoryFilter === ""
                 ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white"
-                : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-transparent text-slate-600 dark:text-slate-400"
+                : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 bg-transparent text-slate-650 dark:text-slate-400"
             }`}
           >
             All
@@ -288,7 +288,7 @@ function Home() {
               className={`text-xs px-4 py-2 rounded-full font-semibold border transition-all cursor-pointer ${
                 categoryFilter === cat
                   ? "bg-brand-500 text-white border-brand-500"
-                  : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-transparent text-slate-600 dark:text-slate-400"
+                  : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 bg-transparent text-slate-650 dark:text-slate-400"
               }`}
             >
               {cat}

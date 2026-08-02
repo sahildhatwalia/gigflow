@@ -5,7 +5,7 @@ import Button from "../components/ui/Button";
 
 function NotFound() {
   return (
-    <div className="min-h-[calc(100vh-64px)] flex flex-col justify-center items-center px-4 dark:bg-[#0F172A] dark:text-white text-center">
+    <div className="min-h-[calc(100vh-64px)] flex flex-col justify-center items-center px-4 dark:bg-slate-950 dark:text-white text-center">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}

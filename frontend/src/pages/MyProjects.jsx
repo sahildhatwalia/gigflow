@@ -171,7 +171,7 @@ function MyProjects() {
 
       {/* Search toolbar */}
       {projects.length > 0 && (
-        <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl shadow-sm">
+        <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-4 rounded-2xl shadow-sm">
           <div className="relative w-full sm:max-w-xs">
             <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 pointer-events-none">
               <FiSearch size={16} />

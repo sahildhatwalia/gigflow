@@ -38,26 +38,26 @@ function Loader({
   // Skeletons
   if (type === "skeleton-line") {
     return (
-      <div className={`h-4 bg-slate-100 dark:bg-slate-800 rounded-md animate-pulse ${className}`} />
+      <div className={`h-4 bg-slate-100 dark:bg-slate-900 rounded-md animate-pulse ${className}`} />
     );
   }
 
   if (type === "skeleton-card") {
     return (
-      <div className={`bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl p-6 shadow-xs animate-pulse space-y-4 ${className}`}>
+      <div className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 shadow-xs animate-pulse space-y-4 ${className}`}>
         <div className="flex justify-between items-start">
-          <div className="h-6 w-20 bg-slate-100 dark:bg-slate-800 rounded-full" />
-          <div className="h-5 w-12 bg-slate-100 dark:bg-slate-800 rounded-full" />
+          <div className="h-6 w-20 bg-slate-100 dark:bg-slate-900 rounded-full" />
+          <div className="h-5 w-12 bg-slate-100 dark:bg-slate-900 rounded-full" />
         </div>
-        <div className="h-6 w-3/4 bg-slate-100 dark:bg-slate-800 rounded-md" />
+        <div className="h-6 w-3/4 bg-slate-100 dark:bg-slate-900 rounded-md" />
         <div className="space-y-2">
-          <div className="h-4 bg-slate-100 dark:bg-slate-800 rounded w-full" />
-          <div className="h-4 bg-slate-100 dark:bg-slate-800 rounded w-5/6" />
+          <div className="h-4 bg-slate-100 dark:bg-slate-900 rounded w-full" />
+          <div className="h-4 bg-slate-100 dark:bg-slate-900 rounded w-5/6" />
         </div>
-        <div className="pt-4 border-t border-slate-100 dark:border-slate-800 grid grid-cols-3 gap-2">
-          <div className="h-9 bg-slate-50 dark:bg-slate-800 rounded-xl" />
-          <div className="h-9 bg-slate-50 dark:bg-slate-800 rounded-xl" />
-          <div className="h-9 bg-slate-50 dark:bg-slate-800 rounded-xl" />
+        <div className="pt-4 border-t border-slate-200 dark:border-slate-700 grid grid-cols-3 gap-2">
+          <div className="h-9 bg-slate-50 dark:bg-slate-900 rounded-xl" />
+          <div className="h-9 bg-slate-50 dark:bg-slate-900 rounded-xl" />
+          <div className="h-9 bg-slate-50 dark:bg-slate-900 rounded-xl" />
         </div>
       </div>
     );

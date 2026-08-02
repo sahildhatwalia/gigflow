@@ -153,7 +153,7 @@ function VerifyOTP() {
                 onChange={(e) => handleChange(index, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(index, e)}
                 onPaste={handlePaste}
-                className="w-12 h-14 sm:w-14 sm:h-16 text-center text-2xl font-bold border border-slate-200 dark:border-slate-800 bg-transparent text-slate-900 dark:text-white rounded-xl focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all"
+                className="w-12 h-14 sm:w-14 sm:h-16 text-center text-2xl font-bold border border-slate-200 dark:border-slate-700 bg-transparent text-slate-900 dark:text-white rounded-xl focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none transition-all"
               />
             ))}
           </div>

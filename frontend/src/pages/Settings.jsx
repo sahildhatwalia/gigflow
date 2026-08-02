@@ -214,7 +214,7 @@ function Settings() {
                     />
                     <label
                       htmlFor="avatar-upload"
-                      className="absolute bottom-0 right-0 bg-slate-900 dark:bg-white text-white dark:text-slate-950 p-2 rounded-full cursor-pointer hover:scale-105 shadow-md border border-slate-100 dark:border-slate-800 transition"
+                      className="absolute bottom-0 right-0 bg-slate-900 dark:bg-white text-white dark:text-slate-950 p-2 rounded-full cursor-pointer hover:scale-105 shadow-md border border-slate-200 dark:border-slate-700 transition"
                       title="Upload Avatar"
                     >
                       <FiCamera size={14} />
@@ -405,7 +405,7 @@ function Settings() {
               </h2>
               
               <div className="space-y-6">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border border-accent-500/20 bg-white dark:bg-slate-800 p-5 rounded-2xl">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border border-accent-500/20 bg-white dark:bg-slate-900 p-5 rounded-2xl">
                   <div>
                     <h3 className="font-extrabold text-sm text-slate-900 dark:text-white">Reset Account Parameters</h3>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">

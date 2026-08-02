@@ -62,7 +62,7 @@ function DashboardLayout({ children }) {
   };
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700">
+    <div className="flex flex-col h-full bg-white dark:bg-slate-950 border-r border-slate-200 dark:border-slate-700">
       {/* Branding - Realigned to signature Freelancer Blue */}
       <div className="flex items-center gap-2.5 px-6 h-16 border-b border-slate-200 dark:border-slate-700">
         <div className="bg-brand-500 p-2 rounded-xl text-white">
@@ -107,7 +107,7 @@ function DashboardLayout({ children }) {
 
       {/* Footer Profile & Logout */}
       {user && (
-        <div className="p-4 border-t border-slate-200 dark:border-slate-700 space-y-3 bg-slate-50/50 dark:bg-slate-800/40">
+        <div className="p-4 border-t border-slate-200 dark:border-slate-700 space-y-3 bg-slate-50/50 dark:bg-slate-900/40">
           <div className="flex items-center gap-3 px-2">
             <Avatar src={user.avatar} name={user.name} size="sm" />
             <div className="flex-1 min-w-0">
@@ -141,7 +141,7 @@ function DashboardLayout({ children }) {
       {/* Main Content Pane */}
       <div className="flex-1 flex flex-col h-full overflow-hidden">
         {/* Header bar */}
-        <header className="h-16 flex items-center justify-between px-6 bg-white/75 dark:bg-slate-800/75 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 z-30">
+        <header className="h-16 flex items-center justify-between px-6 bg-white/75 dark:bg-slate-900/75 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 z-30">
           <div className="flex items-center gap-4">
             {/* Mobile menu hamburger toggle */}
             <button
@@ -218,7 +218,7 @@ function DashboardLayout({ children }) {
             >
               <button
                 onClick={() => setIsSidebarOpen(false)}
-                className="absolute top-4 right-4 p-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 border border-slate-200 dark:border-slate-700 z-10 cursor-pointer"
+                className="absolute top-4 right-4 p-2 rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 border border-slate-200 dark:border-slate-700 z-10 cursor-pointer"
                 aria-label="Close Sidebar Navigation"
               >
                 <FiX size={18} />

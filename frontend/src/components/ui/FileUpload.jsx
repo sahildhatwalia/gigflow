@@ -82,7 +82,7 @@ function FileUpload({
           className={`flex flex-col items-center justify-center p-6 border-2 border-dashed rounded-2xl cursor-pointer transition-all ${
             dragActive
               ? "border-brand-500 bg-brand-50/10 dark:bg-brand-950/10"
-              : "border-slate-200 dark:border-slate-800 hover:border-brand-500/60 dark:hover:border-brand-500/40"
+              : "border-slate-200 dark:border-slate-700 hover:border-brand-500/60 dark:hover:border-brand-500/40"
           }`}
         >
           <input
@@ -101,16 +101,16 @@ function FileUpload({
           </p>
         </div>
       ) : (
-        <div className="flex items-center gap-4 p-4 border border-slate-100 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900">
+        <div className="flex items-center gap-4 p-4 border border-slate-200 dark:border-slate-700 rounded-2xl bg-white dark:bg-slate-900">
           {preview === "document" ? (
-            <div className="w-16 h-16 rounded-xl bg-slate-50 dark:bg-slate-950 flex items-center justify-center text-slate-400 border dark:border-slate-800">
+            <div className="w-16 h-16 rounded-xl bg-slate-50 dark:bg-slate-950 flex items-center justify-center text-slate-400 border border-slate-200 dark:border-slate-700">
               <FiFile size={24} />
             </div>
           ) : (
             <img
               src={preview.startsWith("blob:") || preview.startsWith("http") ? preview : `http://localhost:5000/${preview}`}
               alt="Uploaded thumbnail"
-              className="w-16 h-16 object-cover rounded-xl border dark:border-slate-800"
+              className="w-16 h-16 object-cover rounded-xl border border-slate-200 dark:border-slate-700"
             />
           )}
 
