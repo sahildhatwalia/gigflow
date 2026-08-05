@@ -53,7 +53,7 @@ app.use("/api/verify", verifyRoutes);
 app.use("/api/portfolio", portfolioRoutes);
 
 // Fallback 404 Handler for undefined API routes
-app.use("/api/*", (req, res) => {
+app.use("/api/*splat", (req, res) => {
   res.status(404).json({
     success: false,
     message: `API Route ${req.originalUrl} not found. Check endpoint path and HTTP method.`,
