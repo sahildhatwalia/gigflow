@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const HOST = "http://localhost:5000";
+export const HOST =  import.meta.env.VITE_HOST  || "https://gigflow-3veo.onrender.com";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: `${HOST}/api`,
 });
 
 api.interceptors.request.use((config) => {
