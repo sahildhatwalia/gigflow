@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const HOST =  import.meta.env.VITE_HOST  || "https://gigflow-3veo.onrender.com";
+export const HOST =  import.meta.env.VITE_HOST ;
 
 const api = axios.create({
   baseURL: `${HOST}/api`,
