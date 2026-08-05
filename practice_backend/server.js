@@ -18,7 +18,7 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use(cors());  //define the cors or url in production don’t leave it open
+app.use(cors({ origin: "http://localhost:5173" }));  //define the cors or url in production don’t leave it open
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use("/api/projects", projectRoutes);

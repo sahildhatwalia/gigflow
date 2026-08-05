@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const HOST =  import.meta.env.VITE_HOST ;
+export const HOST = import.meta.env.VITE_HOST || "http://localhost:5000";
 
 const api = axios.create({
-  baseURL: `${HOST}/api`,
+  baseURL: `${HOST || "http://localhost:5000"}/api`,
 });
 
 api.interceptors.request.use((config) => {
