@@ -36,14 +36,31 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!form.name.trim()) {
+      return toast.error("Full Name is required");
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email.trim())) {
+      return toast.error("Please enter a valid email address");
+    }
+
+    if (form.password.length < 6) {
+      return toast.error("Password must be at least 6 characters long");
+    }
+
     try {
       setLoading(true);
-      const res = await authApi.register(form);
+      const res = await authApi.register({
+        ...form,
+        name: form.name.trim(),
+        email: form.email.trim(),
+      });
       toast.success(res.data.message || "OTP sent successfully!");
 
       navigate("/verify-email", {
         state: {
-          email: res.data.email,
+          email: res.data.email || form.email.trim(),
         },
       });
     } catch (err) {

@@ -81,6 +81,15 @@ twoFactorEnabled: {
     type: Boolean,
     default: false,
 },
+
+resetPasswordCode: {
+    type: String,
+    default: "",
+},
+
+resetPasswordExpiry: {
+    type: Date,
+},
   },
   {
     timestamps: true,

@@ -13,6 +13,7 @@ const ViewProject = lazy(() => import("./pages/ViewProject"));
 const VerifyOTP = lazy(() => import("./pages/VerifyOTP"));
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const Profile = lazy(() => import("./pages/Profile"));
 const ChangePassword = lazy(() => import("./pages/ChangePassword"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -79,6 +80,17 @@ function App() {
                 <>
                   <Navbar />
                   <Register />
+                </>
+              )
+            }
+          />
+          <Route
+            path="/forgot-password"
+            element={
+              user ? <Navigate to="/dashboard" replace /> : (
+                <>
+                  <Navbar />
+                  <ForgotPassword />
                 </>
               )
             }

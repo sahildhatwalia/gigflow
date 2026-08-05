@@ -14,6 +14,10 @@ import {
   FiX,
   FiBell,
   FiPlus,
+  FiCheckCircle,
+  FiInfo,
+  FiCheck,
+  FiTrash2,
 } from "react-icons/fi";
 import { AuthContext } from "../context/AuthContext";
 import ThemeToggle from "./ui/ThemeToggle";
@@ -24,6 +28,53 @@ function DashboardLayout({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+
+  // Notification state
+  const [notifications, setNotifications] = useState([
+    {
+      id: 1,
+      title: "Welcome to GigFlow!",
+      message: "Your account is ready. Explore active listings or manage your work profile.",
+      time: "Just now",
+      read: false,
+      type: "system",
+    },
+    {
+      id: 2,
+      title: user?.role === "Client" ? "New Application Received" : "Project Status Update",
+      message: user?.role === "Client"
+        ? "A freelancer applied to your project posting."
+        : "Your application status was updated by the project owner.",
+      time: "45m ago",
+      read: false,
+      type: "project",
+    },
+    {
+      id: 3,
+      title: "Security Verified",
+      message: "Email verification and password reset protections are fully active.",
+      time: "2h ago",
+      read: true,
+      type: "security",
+    },
+  ]);
+
+  const unreadCount = notifications.filter((n) => !n.read).length;
+
+  const markAllAsRead = () => {
+    setNotifications(notifications.map((n) => ({ ...n, read: true })));
+  };
+
+  const markAsRead = (id) => {
+    setNotifications(
+      notifications.map((n) => (n.id === id ? { ...n, read: true } : n))
+    );
+  };
+
+  const deleteNotification = (id) => {
+    setNotifications(notifications.filter((n) => n.id !== id));
+  };
 
   // Role segregation for sidebar navigation
   const getMenuItems = () => {
@@ -63,7 +114,7 @@ function DashboardLayout({ children }) {
 
   const sidebarContent = (
     <div className="flex flex-col h-full bg-white dark:bg-slate-950 border-r border-slate-200 dark:border-slate-700">
-      {/* Branding - Realigned to signature Freelancer Blue */}
+      {/* Branding */}
       <div className="flex items-center gap-2.5 px-6 h-16 border-b border-slate-200 dark:border-slate-700">
         <div className="bg-brand-500 p-2 rounded-xl text-white">
           <FiLayers size={18} />
@@ -78,7 +129,7 @@ function DashboardLayout({ children }) {
         {menuItems.map((item, idx) => {
           const ActiveIcon = item.icon;
           const active = isActive(item.path);
-          
+
           return (
             <div key={idx} className="relative">
               <Link
@@ -97,7 +148,10 @@ function DashboardLayout({ children }) {
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   />
                 )}
-                <ActiveIcon size={18} className={active ? "text-brand-500 dark:text-white" : "text-slate-400"} />
+                <ActiveIcon
+                  size={18}
+                  className={active ? "text-brand-500 dark:text-white" : "text-slate-400"}
+                />
                 <span>{item.label}</span>
               </Link>
             </div>
@@ -141,7 +195,7 @@ function DashboardLayout({ children }) {
       {/* Main Content Pane */}
       <div className="flex-1 flex flex-col h-full overflow-hidden">
         {/* Header bar */}
-        <header className="h-16 flex items-center justify-between px-6 bg-white/75 dark:bg-slate-900/75 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 z-30">
+        <header className="h-16 flex items-center justify-between px-6 bg-white/75 dark:bg-slate-900/75 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 z-30 relative">
           <div className="flex items-center gap-4">
             {/* Mobile menu hamburger toggle */}
             <button
@@ -162,14 +216,135 @@ function DashboardLayout({ children }) {
 
           <div className="flex items-center gap-3">
             <ThemeToggle />
-            
-            <button
-              className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors relative cursor-pointer"
-              aria-label="View notifications"
-            >
-              <FiBell className="text-sm sm:text-base" />
-              <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-brand-500 rounded-full animate-pulse" />
-            </button>
+
+            {/* Notifications Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
+                className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors relative cursor-pointer"
+                aria-label="View notifications"
+              >
+                <FiBell className="text-sm sm:text-base" />
+                {unreadCount > 0 && (
+                  <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-brand-500 rounded-full animate-pulse" />
+                )}
+              </button>
+
+              <AnimatePresence>
+                {isNotificationsOpen && (
+                  <>
+                    {/* Click Outside Overlay */}
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setIsNotificationsOpen(false)}
+                    />
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ duration: 0.15 }}
+                      className="absolute right-0 mt-3 w-80 sm:w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 z-50 overflow-hidden"
+                    >
+                      {/* Header */}
+                      <div className="flex items-center justify-between px-4 py-3.5 border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30">
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-bold text-sm text-slate-900 dark:text-white">
+                            Notifications
+                          </h3>
+                          {unreadCount > 0 && (
+                            <span className="bg-brand-500/10 text-brand-500 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                              {unreadCount} new
+                            </span>
+                          )}
+                        </div>
+
+                        {unreadCount > 0 && (
+                          <button
+                            onClick={markAllAsRead}
+                            className="text-[11px] font-semibold text-brand-500 hover:underline cursor-pointer flex items-center gap-1"
+                          >
+                            <FiCheck /> Mark all read
+                          </button>
+                        )}
+                      </div>
+
+                      {/* List */}
+                      <div className="max-h-80 overflow-y-auto divide-y divide-slate-100 dark:divide-slate-800">
+                        {notifications.length === 0 ? (
+                          <div className="py-8 text-center px-4">
+                            <FiCheckCircle className="mx-auto text-3xl text-slate-300 dark:text-slate-600 mb-2" />
+                            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">
+                              You're all caught up!
+                            </p>
+                            <p className="text-[10px] text-slate-400 mt-0.5">
+                              No new notifications at this time.
+                            </p>
+                          </div>
+                        ) : (
+                          notifications.map((item) => (
+                            <div
+                              key={item.id}
+                              className={`p-3.5 flex items-start gap-3 transition-colors ${
+                                !item.read
+                                  ? "bg-brand-50/30 dark:bg-brand-950/10"
+                                  : "hover:bg-slate-50 dark:hover:bg-slate-800/40"
+                              }`}
+                            >
+                              <div
+                                className={`p-2 rounded-xl text-white text-xs shrink-0 mt-0.5 ${
+                                  item.type === "system"
+                                    ? "bg-brand-500"
+                                    : item.type === "project"
+                                    ? "bg-indigo-500"
+                                    : "bg-emerald-500"
+                                }`}
+                              >
+                                {item.type === "system" ? (
+                                  <FiInfo size={14} />
+                                ) : item.type === "project" ? (
+                                  <FiLayers size={14} />
+                                ) : (
+                                  <FiCheckCircle size={14} />
+                                )}
+                              </div>
+
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center justify-between gap-1">
+                                  <h4
+                                    onClick={() => markAsRead(item.id)}
+                                    className={`text-xs font-bold truncate cursor-pointer ${
+                                      !item.read
+                                        ? "text-slate-900 dark:text-white"
+                                        : "text-slate-600 dark:text-slate-400"
+                                    }`}
+                                  >
+                                    {item.title}
+                                  </h4>
+                                  <span className="text-[10px] text-slate-400 shrink-0">
+                                    {item.time}
+                                  </span>
+                                </div>
+                                <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2 leading-relaxed">
+                                  {item.message}
+                                </p>
+                              </div>
+
+                              <button
+                                onClick={() => deleteNotification(item.id)}
+                                className="text-slate-300 hover:text-slate-500 dark:text-slate-600 dark:hover:text-slate-400 p-1 cursor-pointer"
+                                title="Remove"
+                              >
+                                <FiTrash2 size={12} />
+                              </button>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
+            </div>
 
             {user && (
               <div className="hidden sm:flex items-center gap-2.5 border-l border-slate-200 dark:border-slate-700 pl-3">
