@@ -1,9 +1,11 @@
 import axios from "axios";
 
-export const HOST = import.meta.env.VITE_HOST;
+// Trim any whitespace or trailing slashes from VITE_HOST environment variable
+const rawHost = import.meta.env.VITE_HOST || "";
+export const HOST = rawHost.trim().replace(/\/+$/, "");
 
 const api = axios.create({
-  baseURL: `${HOST}/api`,
+  baseURL: HOST ? `${HOST}/api` : "/api",
 });
 
 api.interceptors.request.use((config) => {

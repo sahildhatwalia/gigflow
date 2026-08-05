@@ -40,11 +40,26 @@ app.use(
 );
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// Root Health Check Route
+app.get("/", (req, res) => {
+  res.json({ success: true, message: "GigFlow Backend API is running successfully!" });
+});
+
 app.use("/api/projects", projectRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/verify", verifyRoutes);
 app.use("/api/portfolio", portfolioRoutes);
+
+// Fallback 404 Handler for undefined API routes
+app.use("/api/*", (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `API Route ${req.originalUrl} not found. Check endpoint path and HTTP method.`,
+  });
+});
+
 const PORT = process.env.PORT || 5000;
 
 // Error handler (returns JSON and logs server errors)
