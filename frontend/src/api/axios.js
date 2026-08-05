@@ -3,7 +3,7 @@ import axios from "axios";
 export const HOST = import.meta.env.VITE_HOST || "http://localhost:5000";
 
 const api = axios.create({
-  baseURL: `${HOST || "http://localhost:5000"}/api`,
+  baseURL: `${HOST}/api`,
 });
 
 api.interceptors.request.use((config) => {
