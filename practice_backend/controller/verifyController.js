@@ -11,15 +11,16 @@ export const verifyEmail = async (req, res) => {
   try {
 
     const { email, otp } = req.body;
+    const cleanEmail = email?.toLowerCase().trim();
 
-    if (!email || !otp) {
+    if (!cleanEmail || !otp) {
       return res.status(400).json({
         success: false,
         message: "Email and OTP are required",
       });
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: cleanEmail });
 
     if (!user) {
       return res.status(404).json({
@@ -50,6 +51,7 @@ export const verifyEmail = async (req, res) => {
     }
 
     user.isVerified = true;
+    user.status = "approved";
 
     user.emailOtp = "";
 
@@ -77,6 +79,7 @@ export const verifyEmail = async (req, res) => {
         email: user.email,
         avatar: user.avatar,
         role: user.role,
+        status: user.status,
       },
     });
 
@@ -101,8 +104,9 @@ export const resendOTP = async (req, res) => {
   try {
 
     const { email } = req.body;
+    const cleanEmail = email?.toLowerCase().trim();
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: cleanEmail });
 
     if (!user) {
       return res.status(404).json({

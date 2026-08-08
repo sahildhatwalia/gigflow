@@ -63,6 +63,7 @@ export const register = async (req, res) => {
       existingUser.name = name.trim();
       existingUser.password = hashedPassword;
       existingUser.role = role || "Freelancer";
+      existingUser.status = "pending";
       existingUser.emailOtp = otp;
       existingUser.emailOtpExpiry = new Date(Date.now() + 10 * 60 * 1000);
 
@@ -90,6 +91,7 @@ export const register = async (req, res) => {
       password: hashedPassword,
       role: role || "Freelancer",
       isVerified: false,
+      status: "pending",
       emailOtp: otp,
       emailOtpExpiry: new Date(Date.now() + 10 * 60 * 1000),
       twoFactorEnabled: false,
@@ -149,6 +151,15 @@ export const login = async (req, res) => {
       });
     }
 
+    const effectiveStatus = user.status || (user.isVerified ? "approved" : "pending");
+
+    if (effectiveStatus !== "approved") {
+      return res.status(403).json({
+        success: false,
+        message: "Your account is still pending approval.",
+      });
+    }
+
     const match = await bcrypt.compare(password, user.password);
 
     if (!match) {
@@ -175,6 +186,7 @@ export const login = async (req, res) => {
         avatar: user.avatar,
         role: user.role,
         isVerified: user.isVerified,
+        status: user.status || (user.isVerified ? "approved" : "pending"),
       },
     });
 
